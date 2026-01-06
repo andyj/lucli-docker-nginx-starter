@@ -1,0 +1,27 @@
+services:
+  lucee:
+    build:
+      context: .
+      dockerfile: docker/lucli/Dockerfile
+    container_name: lucli_lucee
+    restart: unless-stopped
+    environment:
+      - LUCLI_PORT=8080
+      - LUCLI_WEBROOT=/var/www
+      - LUCLI_HOME=/opt/lucli/home
+    volumes:
+      - ./www:/var/www
+    expose:
+      - "8080"
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: lucli_nginx
+    restart: unless-stopped
+    depends_on:
+      - lucee
+    ports:
+      - "8989:80"
+    volumes:
+      - ./www:/var/www:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro

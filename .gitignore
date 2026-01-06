@@ -1,0 +1,13 @@
+# local LuCLI artifacts
+lucli.jar
+.lucli_home/
+
+# Docker build cache
+.jar_extract/
+.jar_extract_tmp/
+
+# Web root artifacts
+www/WEB-INF/
+
+# macOS noise
+.DS_Store
